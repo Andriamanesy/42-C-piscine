@@ -39,7 +39,7 @@ jobs:
           done
 
       - name: ✅ Lint style (Norminette) via l’action officielle
-        uses: alexandregv/norminette-action@v3
+        uses: hanshazairi/42-norminette-action@v1.1.0
         with:
           exclude-dir: "./test"
           flags: '-RINVALID_HEADER .'
