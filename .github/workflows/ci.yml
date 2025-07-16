@@ -14,9 +14,10 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+
       - name: Installer Norminette
-        run: |
-          python3 -m pip install -U pip setuptools norminette
+        run: python3 -m pip install -U pip setuptools norminette
+
       - name: Compiler & exécuter tests
         run: |
           mkdir -p build
@@ -25,19 +26,16 @@ jobs:
             cc -Wall -Wextra -Werror "$t" -o "$exe"
             "$exe"
           done
+
+      - name: ▶️ Exécuter les binaires
+        run: |
+          shopt -s nullglob
+          for f in build/*; do
+            echo "✔ Running $f"
+            "$f" || exit 1
+          done
+
       - name: ✅ Lint style (Norminette)
         uses: 42School/norminette@v3.3.59
         with:
           args: '-RCheckForbiddenSourceHeader C00 C01 C02 C03 C04 C05 C06 C07 C08'
-      - name: ▶️ Exécuter les binaires
-        run: |
-            shopt -s nullglob
-            for f in build/*; do
-              echo "✔ Running $f"
-              "$f" || exit 1
-            done
-
-      - name: ✅ Vérifier le style (Norminette)
-        uses: alexandregv/norminette-action@v3
-        with:
-          flags: '.'
