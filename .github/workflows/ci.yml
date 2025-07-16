@@ -30,7 +30,6 @@ jobs:
             cc -Wall -Wextra -Werror "$t" -o "$exe"
             "$exe"
           done
-
       - name: ▶️ Exécuter les binaires
         run: |
           shopt -s nullglob
@@ -41,15 +40,20 @@ jobs:
 
       - name: ✅ Lint style (Norminette)
         run: |
-              set +e
-              files=$(find . -type f -name '*.c' ! -path './tests/*')
-              output=$(norminette -R CheckForbiddenSourceHeader $files 2>&1)
-              echo "$output"
-              errors=$(echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:')
-              if [ -n "$errors" ]; then
-                echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s) :"
-                echo "$errors"
-                exit 1
-              fi
+            set +e
+            files=$(find . -type f -name '*.c' ! -path './tests/*')
+            output=$(norminette -R CheckForbiddenSourceHeader $files 2>&1)
+            echo "$output"
+            errors=$(echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:')
+            if [ -n "$errors" ]; then
+            echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s) :"
+            echo "$errors"
+            exit 1
+            fi
+      - name: ✅ Exécuter tests unitaires
+        run: |
+            cc -Wall -Wextra -Werror test_ft_putchar.c ft_putchar.c -o test_ft_putchar
+            ./test_ft_putchar
+
 
 
