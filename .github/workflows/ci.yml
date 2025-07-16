@@ -50,23 +50,23 @@ jobs:
             echo "$errors"
             exit 1
             fi
-      - name: Compiler & exécuter tests unitaires
+      - name: ▶️ Compiler & exécuter tests unitaires
         run: |
             shopt -s globstar
             mkdir -p build
             for testfile in tests/C0*/ex*/test_*.c; do
-                exdir=$(basename "$(dirname "$testfile")")
-                cdir=$(basename "$(dirname "$(dirname "$testfile")")")
-                srcfile="$cdir/$exdir/$(basename "$testfile" | sed 's/^test_//')"
-                if [ ! -f "$srcfile" ]; then
+              exdir=$(basename "$(dirname "$testfile")")
+              cdir=$(basename "$(dirname "$(dirname "$testfile")")")
+              srcfile="$cdir/$exdir/$(basename "$testfile" | sed 's/^test_//')"
+              if [ ! -f "$srcfile" ]; then
                 echo "⚠️ Fichier source manquant pour le test $testfile : $srcfile — test ignoré."
                 continue
-                fi
-                exe="build/$(basename "$testfile" .c)"
-                echo "Compilation de $testfile avec $srcfile"
-                cc -Wall -Wextra -Werror "$testfile" "$srcfile" -o "$exe"
-                echo "Exécution de $exe"
-                "$exe"
+              fi
+              exe="build/$(basename "$testfile" .c)"
+              echo "Compilation de $testfile avec $srcfile"
+              cc -Wall -Wextra -Werror -Itests "$testfile" "$srcfile" -o "$exe"
+              echo "Exécution de $exe"
+              "$exe"
             done
 
 
