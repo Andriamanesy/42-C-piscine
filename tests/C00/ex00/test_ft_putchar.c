@@ -1,5 +1,5 @@
 /* tests/C00_ex00/main.c */
-#include "../../../C00/ex00/ft_putchar.c"
+#include "ft_putchar.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
