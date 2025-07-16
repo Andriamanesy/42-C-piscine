@@ -42,4 +42,9 @@ jobs:
       - name: ✅ Lint style (Norminette)
         run: |
           files=$(find . -type f -name '*.c' ! -path './tests/*')
-          norminette -R CheckForbiddenSourceHeader $files || true
+          output=$(norminette -R CheckForbiddenSourceHeader $files)
+          echo "$output" | grep -v 'Error: INVALID_HEADER'
+          if echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:'; then
+              echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s)."
+              exit 1
+          fi
