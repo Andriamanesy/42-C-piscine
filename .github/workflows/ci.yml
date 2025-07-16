@@ -43,8 +43,10 @@ jobs:
         run: |
             files=$(find . -type f -name '*.c' ! -path './tests/*')
             output=$(norminette -R CheckForbiddenSourceHeader $files)
-            echo "$output"   # Affiche tout, y compris INVALID_HEADER
-            if echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:' > /dev/null; then
-                echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s)."
-                exit 1
+            echo "$output"
+            errors=$(echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:')
+            if [ -n "$errors" ]; then
+              echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s) :"
+              echo "$errors"
+              exit 1
             fi
