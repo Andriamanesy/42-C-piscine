@@ -40,6 +40,6 @@ int main()
 {
 	printf("▶️  Test de ft_print_alphabet\n");
 	capture_and_test();
-	printf("✅ Tous les tests unitaires sont passés.\n");
+	printf("✅ Tous les tests sont passés pour %s.\n", FUNCTION_NAME);
 	return 0;
 }

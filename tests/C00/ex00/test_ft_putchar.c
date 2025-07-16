@@ -51,6 +51,6 @@ int main() {
         return 1;
     }
 
-    printf("✅ Tous les tests unitaires sont passés.\n");
+    printf("✅ Tous les tests sont passés pour %s.\n", FUNCTION_NAME);
     return 0;
 }
