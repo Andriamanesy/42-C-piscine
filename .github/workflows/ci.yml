@@ -41,5 +41,4 @@ jobs:
 
       - name: ✅ Lint style (Norminette) via l’action officielle
         run: |
-          files=$(find . -type f -name '*.c' ! -path './test/*')
           norminette -R CheckForbiddenSourceHeader $files || true
