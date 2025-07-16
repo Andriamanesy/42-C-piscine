@@ -40,5 +40,7 @@ jobs:
           done
 
       - name: ✅ Lint style (Norminette) via l’action officielle
-        run: |
-          norminette -R CheckForbiddenSourceHeader $files || true
+        uses: alexandregv/norminette-action@v3
+        with:
+          args: '-R CheckForbiddenSourceHeader'
+          exclude-dir: 'test'
