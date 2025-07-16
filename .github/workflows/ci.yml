@@ -41,12 +41,10 @@ jobs:
 
       - name: ✅ Lint style (Norminette)
         run: |
-            files=$(find . -type f -name '*.c' ! -path './tests/*')
-            output=$(norminette -R CheckForbiddenSourceHeader $files)
-            # Affiche tout sauf INVALID_HEADER
-            echo "$output" | grep -v 'Error: INVALID_HEADER'
-            # Si d'autres erreurs que INVALID_HEADER sont présentes, échoue le job
-            if echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:' > /dev/null; then
-              echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s)."
-              exit 1
-            fi
+          files=$(find . -type f -name '*.c' ! -path './tests/*')
+          output=$(norminette -R CheckForbiddenSourceHeader $files)
+          echo "$output" | grep -v 'Error: INVALID_HEADER'
+          if echo "$output" | grep -v 'Error: INVALID_HEADER' | grep 'Error:' > /dev/null; then
+            echo "Erreur(s) autre(s) que INVALID_HEADER détectée(s)."
+            exit 1
+          fi
