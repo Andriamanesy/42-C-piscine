@@ -1,5 +1,5 @@
 /* tests/C00_ex00/main.c */
-#include "../../C00/ex00/ft_putchar.c"
+#include "../../../C00/ex00/ft_putchar.c"
 
 int main(void)
 {
