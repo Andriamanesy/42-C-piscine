@@ -39,7 +39,8 @@ jobs:
             "$f" || exit 1
           done
 
-      - name: ✅ Lint style (Norminette)
-        run: |
-          files=$(find . -type f -name '*.c' ! -path './test/*')
-          norminette -R CheckForbiddenSourceHeader $files
+      - name: ✅ Lint style (Norminette) via l’action officielle
+        uses: 42school/norminette@v3
+        with:
+            args: '-R CheckForbiddenSourceHeader'
+            exclude-dir: 'test'
