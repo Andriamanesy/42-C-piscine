@@ -6,8 +6,6 @@
 #include <string.h>
 #include <assert.h>
 
-void ft_putchar(char c);
-
 // Fonction pour capturer un caractère écrit par ft_putchar
 char capture_putchar_output(char input) {
     int saved_stdout = dup(STDOUT_FILENO);
