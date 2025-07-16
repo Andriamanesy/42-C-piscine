@@ -38,10 +38,11 @@ jobs:
 
       - name: ▶️ Exécuter les binaires
         run: |
-          for f in build/*; do
-            echo "✔ Running $f"
-            "$f" || exit 1
-          done
+            shopt -s nullglob
+            for f in build/*; do
+              echo "✔ Running $f"
+              "$f" || exit 1
+            done
 
       - name: ✅ Vérifier le style (Norminette)
         uses: alexandregv/norminette-action@v3
