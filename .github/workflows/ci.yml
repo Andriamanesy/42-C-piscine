@@ -36,6 +36,6 @@ jobs:
           done
 
       - name: ✅ Lint style (Norminette)
-        uses: 42school/norminette@v3.3.51
+        uses: 42school/norminette@v3.3.59
         with:
           args: '-RCheckForbiddenSourceHeader C00 C01 C02 C03 C04 C05 C06 C07 C08'
