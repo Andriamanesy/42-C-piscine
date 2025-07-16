@@ -9,14 +9,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
       - name: Installer Norminette
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip
-          pip3 install norminette
+          python3 -m pip install --upgrade pip setuptools
+          python3 -m pip install norminette
 
       - name: Compiler les exercices
         run: |
@@ -38,5 +43,7 @@ jobs:
             "$f" || exit 1
           done
 
-      - name: Vérifier le style avec Norminette
+      - name: Vérification avec Norminette
         uses: alexandregv/norminette-action@v3
+        with:
+          flags: '.'
