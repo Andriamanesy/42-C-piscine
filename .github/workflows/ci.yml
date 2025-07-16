@@ -41,4 +41,5 @@ jobs:
       - name: ✅ Lint style (Norminette) via l’action officielle
         uses: alexandregv/norminette-action@v3
         with:
+          exclude-dir: "./test"
           flags: '-RINVALID_HEADER .'
