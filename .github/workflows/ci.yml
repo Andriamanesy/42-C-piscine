@@ -10,32 +10,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 🔁 Checkout du code
-        uses: actions/checkout@v3
-
-      - name: 🐍 Setup Python 3.10
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
-
-      - name: 📦 Installer Norminette
+          python-version: '3.10'
+      - name: Installer Norminette
         run: |
-          python3 -m pip install --upgrade pip setuptools
-          python3 -m pip install norminette
-
-      - name: Compiler et exécuter les tests
+          python3 -m pip install -U pip setuptools norminette
+      - name: Compiler & exécuter tests
         run: |
-            mkdir -p build
-            # Compilations avec tests
-            find tests -type f -name 'main.c' | while read -r t; do
-              src=${t#tests/}
-              exe="build/$(dirname "$src")"
-              echo "🧪 Test $t -> $exe"
-              cc -Wall -Werror -Wextra "$t" -o "$exe"
-              "$exe"
-            done
-
-
+          mkdir -p build
+          find tests -type f -name 'main.c' | while read -r t; do
+            exe="build/$(basename "$(dirname "$t")")"
+            cc -Wall -Wextra -Werror "$t" -o "$exe"
+            "$exe"
+          done
+      - name: ✅ Lint style (Norminette)
+        uses: 42School/norminette@v3.3.59
+        with:
+          args: '-RCheckForbiddenSourceHeader C00 C01 C02 C03 C04 C05 C06 C07 C08'
       - name: ▶️ Exécuter les binaires
         run: |
             shopt -s nullglob
