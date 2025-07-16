@@ -9,43 +9,39 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: 🔁 Checkout du code
+        uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: 🐍 Setup Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Installer Norminette
+      - name: 📦 Installer Norminette
         run: |
           python3 -m pip install --upgrade pip setuptools
           python3 -m pip install norminette
 
-      - name: Compiler les exercices
+      - name: 🛠 Compiler les fichiers C
         run: |
-            mkdir -p build
-            for mod in C*/; do
-                for ex in "$mod"/ex*/; do
-                src=$(find "$ex" -maxdepth 1 -name 'ft_*.c')
-                if [ -n "$src" ]; then
-                    bin="build/$(basename "$mod")_$(basename "$ex")"
-                    cc -Wall -Wextra -Werror $src -o "$bin"
-                else
-                    echo "⚠️ Aucun fichier ft_*.c trouvé dans $ex, je saute"
-                fi
-                done
-            done
+          mkdir -p build
+          find C*/ex* -maxdepth 1 -type f -name 'ft_*.c' | while read -r src; do
+            moddir=$(echo "$src" | cut -d'/' -f1)
+            exdir=$(echo "$src" | cut -d'/' -f2)
+            bin="build/${moddir}_${exdir}"
+            echo "⚙️ Compiling $src -> $bin"
+            cc -Wall -Wextra -Werror "$src" -o "$bin"
+          done
 
-      - name: Exécuter les binaires
+      - name: ▶️ Exécuter les binaires
         run: |
           for f in build/*; do
             echo "✔ Running $f"
             "$f" || exit 1
           done
 
-      - name: Vérification avec Norminette
+      - name: ✅ Vérifier le style (Norminette)
         uses: alexandregv/norminette-action@v3
         with:
           flags: '.'
