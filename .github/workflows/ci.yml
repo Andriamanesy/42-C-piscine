@@ -1,0 +1,42 @@
+name: CI – Piscine 42
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Installer Norminette
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install norminette
+
+      - name: Compiler les exercices
+        run: |
+          mkdir -p build
+          for mod in C*/; do
+            for ex in "$mod"/ex*/; do
+              src=$(find "$ex" -maxdepth 1 -name 'ft_*.c')
+              if [ -n "$src" ]; then
+                bin="build/$(basename "$mod")_$(basename "$ex")"
+                cc -Wall -Wextra -Werror $src -o "$bin"
+              fi
+            done
+          done
+
+      - name: Exécuter les binaires
+        run: |
+          for f in build/*; do
+            echo "✔ Running $f"
+            "$f" || exit 1
+          done
+
+      - name: Vérifier le style avec Norminette
+        uses: alexandregv/norminette-action@v3
