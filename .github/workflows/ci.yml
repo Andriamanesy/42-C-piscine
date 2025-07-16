@@ -25,16 +25,18 @@ jobs:
 
       - name: Compiler les exercices
         run: |
-          mkdir -p build
-          for mod in C*/; do
-            for ex in "$mod"/ex*/; do
-              src=$(find "$ex" -maxdepth 1 -name 'ft_*.c')
-              if [ -n "$src" ]; then
-                bin="build/$(basename "$mod")_$(basename "$ex")"
-                cc -Wall -Wextra -Werror $src -o "$bin"
-              fi
+            mkdir -p build
+            for mod in C*/; do
+                for ex in "$mod"/ex*/; do
+                src=$(find "$ex" -maxdepth 1 -name 'ft_*.c')
+                if [ -n "$src" ]; then
+                    bin="build/$(basename "$mod")_$(basename "$ex")"
+                    cc -Wall -Wextra -Werror $src -o "$bin"
+                else
+                    echo "⚠️ Aucun fichier ft_*.c trouvé dans $ex, je saute"
+                fi
+                done
             done
-          done
 
       - name: Exécuter les binaires
         run: |
