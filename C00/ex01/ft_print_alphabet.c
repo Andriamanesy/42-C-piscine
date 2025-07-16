@@ -7,7 +7,7 @@ void	ft_putchar(char c)
 
 void	ft_print_alphabet(void)
 {
-	char a;
+	char	a;
 
 	a = 'a';
 	while (a <= 'z')
