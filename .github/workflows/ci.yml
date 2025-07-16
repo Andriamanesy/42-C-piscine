@@ -23,16 +23,18 @@ jobs:
           python3 -m pip install --upgrade pip setuptools
           python3 -m pip install norminette
 
-      - name: 🛠 Compiler les fichiers C
+      - name: Compiler et exécuter les tests
         run: |
-          mkdir -p build
-          find C*/ex* -maxdepth 1 -type f -name 'ft_*.c' | while read -r src; do
-            moddir=$(echo "$src" | cut -d'/' -f1)
-            exdir=$(echo "$src" | cut -d'/' -f2)
-            bin="build/${moddir}_${exdir}"
-            echo "⚙️ Compiling $src -> $bin"
-            cc -Wall -Wextra -Werror "$src" -o "$bin"
-          done
+            mkdir -p build
+            # Compilations avec tests
+            find tests -type f -name 'main.c' | while read -r t; do
+              src=${t#tests/}
+              exe="build/$(dirname "$src")"
+              echo "🧪 Test $t -> $exe"
+              cc -Wall -Werror -Wextra "$t" -o "$exe"
+              "$exe"
+            done
+
 
       - name: ▶️ Exécuter les binaires
         run: |
