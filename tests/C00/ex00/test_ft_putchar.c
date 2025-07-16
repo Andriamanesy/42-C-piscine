@@ -1,10 +1,12 @@
 /* tests/C00_ex00/main.c */
-#include "ft_putchar.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
 #include <assert.h>
+
+// Prototype directement dans le test
+void	ft_putchar(void);
 
 // Fonction pour capturer un caractère écrit par ft_putchar
 char capture_putchar_output(char input) {
