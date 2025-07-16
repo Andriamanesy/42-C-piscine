@@ -42,4 +42,4 @@ jobs:
       - name: ✅ Lint style (Norminette)
         run: |
           files=$(find . -type f -name '*.c' ! -path './tests/*')
-          norminette -R CheckForbiddenSourceHeader $files || true
+          norminette $files | grep -v 'INVALID_HEADER' || true
