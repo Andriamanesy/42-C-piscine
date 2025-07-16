@@ -1,4 +1,5 @@
 /* tests/C00_ex00/main.c */
+#include "../../test_utils.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -50,7 +51,6 @@ int main() {
         printf("❌ Failed: Expected 'Z' but got '%c'\n", result);
         return 1;
     }
-
-    printf("✅ Tous les tests sont passés pour %s.\n", FUNCTION_NAME);
+    printf("✅ Tous les tests sont passés pour %s.\n", extract_function_name(__FILE__));
     return 0;
 }

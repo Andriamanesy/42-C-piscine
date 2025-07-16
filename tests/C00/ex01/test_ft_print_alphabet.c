@@ -1,3 +1,4 @@
+#include "../../test_utils.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -40,6 +41,6 @@ int main()
 {
 	printf("▶️  Test de ft_print_alphabet\n");
 	capture_and_test();
-	printf("✅ Tous les tests sont passés pour %s.\n", FUNCTION_NAME);
+	printf("✅ Tous les tests sont passés pour %s.\n", extract_function_name(__FILE__));
 	return 0;
 }
