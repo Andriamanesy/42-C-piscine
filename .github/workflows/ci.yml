@@ -41,6 +41,7 @@ jobs:
 
       - name: ✅ Lint style (Norminette)
         run: |
+              set +e
               files=$(find . -type f -name '*.c' ! -path './tests/*')
               output=$(norminette -R CheckForbiddenSourceHeader $files 2>&1)
               echo "$output"
