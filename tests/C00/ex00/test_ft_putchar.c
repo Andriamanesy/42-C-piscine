@@ -6,7 +6,7 @@
 #include <assert.h>
 
 // Prototype directement dans le test
-void	ft_putchar(void);
+void	ft_putchar(char c);
 
 // Fonction pour capturer un caractère écrit par ft_putchar
 char capture_putchar_output(char input) {
