@@ -1,6 +1,18 @@
 #include <unistd.h>
 
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
 void	ft_print_reverse_alphabet(void)
 {
-	write (1, "zyxwvutsrqponmlkjihgfedcba", 26);
+	char	c;
+	
+	c = 'a';
+	while (c <= 'z')
+	{
+		ft_puchar(c);
+		c++;
+	}
 }
