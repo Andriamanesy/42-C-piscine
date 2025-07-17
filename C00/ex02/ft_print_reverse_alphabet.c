@@ -12,7 +12,7 @@ void	ft_print_reverse_alphabet(void)
 	c = 'a';
 	while (c <= 'z')
 	{
-		ft_puchar(c);
+		ft_putchar(c);
 		c++;
 	}
 }
