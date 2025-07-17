@@ -13,6 +13,6 @@ void	ft_print_reverse_alphabet(void)
 	while (c >= 'a')
 	{
 		ft_putchar(c);
-		c++;
+		c--;
 	}
 }
