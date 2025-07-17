@@ -36,3 +36,11 @@ void capture_and_test()
 		assert(0);
 	}
 }
+
+int main()
+{
+	printf("▶️  Test de ft_print_reverse_alphabet\n");
+	capture_and_test();
+	printf("✅ Tous les tests sont passés pour %s.\n", extract_function_name(__FILE__));
+	return 0;
+}
