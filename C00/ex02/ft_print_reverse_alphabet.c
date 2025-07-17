@@ -8,7 +8,7 @@ void	ft_putchar(char c)
 void	ft_print_reverse_alphabet(void)
 {
 	char	c;
-	
+
 	c = 'a';
 	while (c <= 'z')
 	{
